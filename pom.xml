@@ -4,7 +4,7 @@
 
     <artifactId>sipening-auth</artifactId>
     <packaging>jar</packaging>
-    <groupId>2022.01.31.10.04-release</groupId>
+    <groupId>com.tabeldata.sipening</groupId>
 
     <name>Oauth2 Server for PostgreSQL Database</name>
     <description>OAuth 2.0 Authentication and Authorization Server for PostgreSQL Database</description>
