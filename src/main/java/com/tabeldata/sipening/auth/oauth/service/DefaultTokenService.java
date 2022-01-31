@@ -1,10 +1,5 @@
 package com.tabeldata.sipening.auth.oauth.service;
 
-2022.01.31.10.04-release.oauth.service;
-
-import 2022.01.31.10.04-release.oauth.models.OauthAccessTokenExtended;
-import 2022.01.31.10.04-release.oauth.models.OauthAccessTokenHistory;
-import 2022.01.31.10.04-release.oauth.repository.JdbcTokenStoreCustom;
 import com.maryanto.dimas.plugins.web.commons.ui.datatables.DataTablesRequest;
 import com.maryanto.dimas.plugins.web.commons.ui.datatables.DataTablesResponse;
 import com.maryanto.dimas.plugins.web.commons.ui.datatables.service.ServiceDataTablesPattern;

@@ -1,12 +1,5 @@
 package com.tabeldata.sipening.auth.oauth.service;
 
-2022.01.31.10.04-release.oauth.service;
-
-import 2022.01.31.10.04-release.oauth.models.OauthApplication;
-import 2022.01.31.10.04-release.oauth.models.OauthClientDetails;
-import 2022.01.31.10.04-release.oauth.models.OauthGrantType;
-import 2022.01.31.10.04-release.oauth.models.OauthScope;
-import 2022.01.31.10.04-release.oauth.repository.OauthClientDetailsRepository;
 import com.tabeldata.sipening.auth.oauth.models.OauthApplication;
 import com.tabeldata.sipening.auth.oauth.models.OauthClientDetails;
 import com.tabeldata.sipening.auth.oauth.models.OauthGrantType;
