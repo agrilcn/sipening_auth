@@ -30,9 +30,9 @@ spring:
     check-template-location: true
     template-resolver-order: 0
   datasource:
-    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:oauth2}
-    username: ${DATABASE_USER:oauth2}
-    password: ${DATABASE_PASSWORD:oauth2}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:sipening_auth}
+    username: ${DATABASE_USER:sipening_auth}
+    password: ${DATABASE_PASSWORD:sipening_auth}
     driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: false
@@ -62,7 +62,3 @@ spring:
   queries:
     authentication: select * from auth.authentication(?)
     authorization: select * from auth.authorization(?)
-logging:
-  level:
-    org.springframework: ERROR
-    com.tabeldata: ${LOG_LEVEL:DEBUG}
