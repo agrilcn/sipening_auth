@@ -10,10 +10,10 @@ $$
 DECLARE
     data record;
 BEGIN
-    FOR data IN (select u.username as uid, u.password as passwd, u.is_active as is_enabled
-                 from auth.users u
-                 where u.username = uname
-                   and is_locked = false)
+    FOR data IN (select u.i_peg_nrk as uid, u.i_sandi as passwd, u.c_aktif as is_enabled
+                  from trsiappengguna u
+                  where u.i_peg_nrk = uname
+                     and c_lock = false)
         LOOP
             username := data.uid;
             password := data.passwd;
@@ -34,31 +34,19 @@ AS
 $$
 DECLARE
     data record;
-    sudo boolean;
 BEGIN
-    select is_sudo into sudo from auth.users u where u.username = uname;
-    raise notice 'is sudo for % -> % ', uname, sudo;
-    if sudo is false then
-        FOR data IN (select distinct role.name as role_name, u.username as user_id
-                     from auth.users u
-                              join auth.user_privileges granted on u.id = granted.user_id
-                              join auth.privileges privilege on granted.privilege_id = privilege.id
-                              join auth.authorities authority on authority.privilege_id = privilege.id
-                              join auth.roles role on authority.role_id = role.id
-                     where u.username = uname)
-            LOOP
-                username := data.user_id;
-                authority := data.role_name;
-                RETURN NEXT;
-            END LOOP;
-    else
-        FOR data IN (select name as role_name from auth.roles)
-            LOOP
-                username := uname;
-                authority := data.role_name;
-                RETURN NEXT;
-            END LOOP;
-    end if;
+    FOR data IN (select distinct
+                     pgun.i_peg_nrk  as user_id,
+                     otor.c_otoritas as role_name
+                  from trsiappengguna pgun
+                     left join trsiappenggunaotoritas pgunotor on pgun.i_id = pgunotor.i_idpengguna
+                     left join trsiapotoritas otor on pgunotor.i_idotoritas = otor.i_id
+                  where otor.c_aktif = true and pgun.i_peg_nrk = uname)
+        LOOP
+            username := uname;
+            authority := data.role_name;
+            RETURN NEXT;
+        END LOOP;
 END;
 $$
     LANGUAGE 'plpgsql';

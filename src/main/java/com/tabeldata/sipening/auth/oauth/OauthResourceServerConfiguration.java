@@ -35,7 +35,8 @@ public class OauthResourceServerConfiguration extends ResourceServerConfigurerAd
                         "/swagger-resources/**",
                         "/v2/api-docs",
                         "/webjars/**",
-                        "/static/**").permitAll()
+                        "/static/**",
+                        "/api/public/**").permitAll()
                 .anyRequest().authenticated();
     }
 }
