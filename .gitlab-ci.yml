@@ -2,27 +2,28 @@ stages:
   - pre-build
   - test
   - build
+  - publish
+  - review
   - deploy
 
-cache:
-  paths:
-    - node_modules/
+variables:
+  MAVEN_JDK_VERSION: "3-jdk-11-slim"
+  DOCKER_VERSION: "stable"
+  DOCKER_DIND_VERSION: "18.09-dind"
+  DOCKER_BUILD_ARGS_ENTRIPOINT: "--build-arg JAR_FILE=$JAR_FILE"
 
 default:
   tags:
     - docker
 
 include:
-  - remote: 'https://raw.githubusercontent.com/dimMaryanto93/gitlab-cicd-templates/main/build.angular.gitlab-ci.yml'
+  - remote: 'https://raw.githubusercontent.com/dimMaryanto93/gitlab-cicd-templates/main/build.maven.gitlab-ci.yml'
   - remote: 'https://raw.githubusercontent.com/dimMaryanto93/gitlab-cicd-templates/main/build.docker.gitlab-ci.yml'
   - remote: 'https://raw.githubusercontent.com/dimMaryanto93/gitlab-cicd-templates/main/trigger.deploy.gitlab-ci.yml'
 
-ng:build:production:
-  extends: .build-ng
-  variables:
-    NG_MEMORY_HEAP: "--max_old_space_size=8192"
-    NODE_VERSION: "14.15-alpine"
+build:jar:
   stage: build
+  extends: .build-jar
   only:
     - /-release/
 
@@ -30,10 +31,9 @@ build:docker:
   stage: build
   extends: .build-docker
   variables:
-    DOCKER_BUILD_ARGS_ENTRIPOINT: "--build-arg BUILD_FOLDER=dist/"
-    DOCKERFILE_LOCATION: "-f Dockerfile"
+    DOCKER_BUILD_ARGS_ENTRIPOINT: "--build-arg JAR_FILE=$JAR_FILE"
   needs:
-    - ng:build:production
+    - build:jar
     - get-fact:project:info
   only:
     - /-release/
