@@ -54,7 +54,7 @@ spring:
           use_jdbc_metadata_defaults: false
   flyway:
     encoding: UTF-8
-    enabled: ${DATABASE_HOST:true}
+    enabled: ${FLYWAY_ENABLED:true}
     baseline-on-migrate: true
     locations: classpath:/db/migration
     schemas: public,oauth,auth,resource,component
